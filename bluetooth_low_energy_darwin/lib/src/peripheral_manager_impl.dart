@@ -198,6 +198,9 @@ final class PeripheralManagerImpl
     if (request is! GATTWriteRequestImpl) {
       throw TypeError();
     }
+    if (request.type == GATTCharacteristicWriteType.withoutResponse) {
+      return;
+    }
     final hashCodeArgs = request.hashCode;
     const valueArgs = null;
     const errorArgs = ATTErrorArgs.success;
@@ -212,6 +215,9 @@ final class PeripheralManagerImpl
   }) async {
     if (request is! GATTWriteRequestImpl) {
       throw TypeError();
+    }
+    if (request.type == GATTCharacteristicWriteType.withoutResponse) {
+      return;
     }
     final hashCodeArgs = request.hashCode;
     const valueArgs = null;
@@ -323,6 +329,7 @@ final class PeripheralManagerImpl
             hashCode: hashCodeArgs,
             offset: offsetArgs,
             value: Uint8List.fromList(elements),
+            type: _inferWriteType(characteristic),
           ),
         );
         _characteristicWriteRequestedController.add(eventArgs);
@@ -381,6 +388,23 @@ final class PeripheralManagerImpl
       final hashCodeArgs = characteristic.hashCode;
       _characteristics.remove(hashCodeArgs);
     }
+  }
+
+  GATTCharacteristicWriteType? _inferWriteType(
+    MutableGATTCharacteristicImpl characteristic,
+  ) {
+    final hasWrite = characteristic.properties.contains(
+      GATTCharacteristicProperty.write,
+    );
+    final hasWriteWithoutResponse = characteristic.properties.contains(
+      GATTCharacteristicProperty.writeWithoutResponse,
+    );
+    if (hasWrite == hasWriteWithoutResponse) {
+      return null;
+    }
+    return hasWrite
+        ? GATTCharacteristicWriteType.withResponse
+        : GATTCharacteristicWriteType.withoutResponse;
   }
 
   Future<void> _initialize() async {
