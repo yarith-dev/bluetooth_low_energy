@@ -466,5 +466,5 @@ final class CentralManagerImpl implements CentralManager {
 
 final class CentralManagerChannelImpl extends CentralManagerChannel {
   @override
-  CentralManager create() => CentralManagerImpl();
+  CentralManager create({bool showPowerAlert = true}) => CentralManagerImpl();
 }

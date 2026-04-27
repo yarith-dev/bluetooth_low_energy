@@ -27,9 +27,11 @@ final class PeripheralManagerImpl
   final Map<int, MutableGATTCharacteristicImpl> _characteristics;
 
   BluetoothLowEnergyState _state;
+  final bool _showPowerAlert;
 
-  PeripheralManagerImpl()
-    : _api = PeripheralManagerHostApi(),
+  PeripheralManagerImpl({bool showPowerAlert = true})
+    : _showPowerAlert = showPowerAlert,
+      _api = PeripheralManagerHostApi(),
       _stateChangedController = StreamController.broadcast(),
       _characteristicReadRequestedController = StreamController.broadcast(),
       _characteristicWriteRequestedController = StreamController.broadcast(),
@@ -412,7 +414,7 @@ final class PeripheralManagerImpl
     await Future(() async {
       try {
         _logger.info('initialize');
-        await _api.initialize();
+        await _api.initialize(_showPowerAlert);
         _getState();
       } catch (e) {
         _logger.severe('initialize failed.', e);
@@ -446,5 +448,6 @@ final class PeripheralManagerImpl
 
 final class PeripheralManagerChannelImpl extends PeripheralManagerChannel {
   @override
-  PeripheralManager create() => PeripheralManagerImpl();
+  PeripheralManager create({bool showPowerAlert = true}) =>
+      PeripheralManagerImpl(showPowerAlert: showPowerAlert);
 }

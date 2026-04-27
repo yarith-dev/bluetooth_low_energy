@@ -13,10 +13,17 @@ abstract interface class CentralManager implements BluetoothLowEnergyManager {
   static CentralManager? _instance;
 
   /// Gets the instance of [CentralManager] to use.
-  factory CentralManager() {
+  ///
+  /// The first call creates the shared singleton and uses [showPowerAlert].
+  /// Later calls reuse the same instance.
+  ///
+  /// Only used on iOS and macOS.
+  factory CentralManager({bool showPowerAlert = true}) {
     var instance = _instance;
     if (instance == null) {
-      _instance = instance = CentralManagerChannel.instance.create();
+      _instance = instance = CentralManagerChannel.instance.create(
+        showPowerAlert: showPowerAlert,
+      );
     }
     return instance;
   }
@@ -158,5 +165,5 @@ abstract base class CentralManagerChannel extends PlatformInterface {
   /// Constructs a [CentralManagerChannel].
   CentralManagerChannel() : super(token: _token);
 
-  CentralManager create();
+  CentralManager create({bool showPowerAlert = true});
 }

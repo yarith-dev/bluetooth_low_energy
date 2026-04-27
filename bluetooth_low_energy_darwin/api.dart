@@ -184,7 +184,7 @@ class ATTRequestArgs {
 
 @HostApi()
 abstract class CentralManagerHostApi {
-  void initialize();
+  void initialize(bool showPowerAlert);
   BluetoothLowEnergyStateArgs getState();
   @async
   void showAppSettings();
@@ -260,7 +260,7 @@ abstract class CentralManagerFlutterApi {
 
 @HostApi()
 abstract class PeripheralManagerHostApi {
-  void initialize();
+  void initialize(bool showPowerAlert);
   BluetoothLowEnergyStateArgs getState();
   @async
   void showAppSettings();

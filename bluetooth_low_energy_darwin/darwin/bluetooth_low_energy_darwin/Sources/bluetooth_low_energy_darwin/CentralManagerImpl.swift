@@ -18,8 +18,13 @@ import FlutterMacOS
 
 class CentralManagerImpl: CentralManagerHostApi {
     private let mApi: CentralManagerFlutterApi
+    private var mShowPowerAlert = true
     
-    private lazy var mCentralManager = CBCentralManager()
+    private lazy var mCentralManager = CBCentralManager(
+        delegate: nil,
+        queue: nil,
+        options: [CBCentralManagerOptionShowPowerAlertKey: self.mShowPowerAlert]
+    )
     private lazy var mCentralManagerDelegate = CBCentralManagerDelegateImpl(self)
     private lazy var mPeripheralDelegate = CBPeripheralDelegateImpl(self)
     
@@ -63,7 +68,8 @@ class CentralManagerImpl: CentralManagerHostApi {
         self.mWriteDescriptorCompletions = [:]
     }
     
-    func initialize() throws {
+    func initialize(showPowerAlert: Bool) throws {
+        self.mShowPowerAlert = showPowerAlert
         if(self.mCentralManager.isScanning) { self.mCentralManager.stopScan() }
         
         for peripheral in self.mPeripherals.values {

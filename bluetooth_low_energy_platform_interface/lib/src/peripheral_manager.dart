@@ -17,10 +17,17 @@ abstract interface class PeripheralManager
   static PeripheralManager? _instance;
 
   /// Gets the instance of [PeripheralManager] to use.
-  factory PeripheralManager() {
+  ///
+  /// The first call creates the shared singleton and uses [showPowerAlert].
+  /// Later calls reuse the same instance.
+  ///
+  /// Only used on iOS and macOS.
+  factory PeripheralManager({bool showPowerAlert = true}) {
     var instance = _instance;
     if (instance == null) {
-      _instance = instance = PeripheralManagerChannel.instance.create();
+      _instance = instance = PeripheralManagerChannel.instance.create(
+        showPowerAlert: showPowerAlert,
+      );
     }
     return instance;
   }
@@ -177,5 +184,5 @@ abstract base class PeripheralManagerChannel extends PlatformInterface {
   /// Constructs a [PeripheralManagerChannel].
   PeripheralManagerChannel() : super(token: _token);
 
-  PeripheralManager create();
+  PeripheralManager create({bool showPowerAlert = true});
 }

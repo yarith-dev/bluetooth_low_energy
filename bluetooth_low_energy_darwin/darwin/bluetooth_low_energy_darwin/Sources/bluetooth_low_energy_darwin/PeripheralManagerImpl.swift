@@ -18,8 +18,13 @@ import FlutterMacOS
 
 class PeripheralManagerImpl: PeripheralManagerHostApi {
     private let mApi: PeripheralManagerFlutterApi
+    private var mShowPowerAlert = true
     
-    private lazy var mPeripheralManager = CBPeripheralManager()
+    private lazy var mPeripheralManager = CBPeripheralManager(
+        delegate: nil,
+        queue: nil,
+        options: [CBPeripheralManagerOptionShowPowerAlertKey: self.mShowPowerAlert]
+    )
     private lazy var mPeripheralManagerDelegate = CBPeripheralManagerDelegateImpl(self)
     
     private var mServicesArgs: [Int: MutableGATTServiceArgs]
@@ -52,7 +57,8 @@ class PeripheralManagerImpl: PeripheralManagerHostApi {
         self.mStartAdvertisingCompletion = nil
     }
     
-    func initialize() throws {
+    func initialize(showPowerAlert: Bool) throws {
+        self.mShowPowerAlert = showPowerAlert
         if self.mPeripheralManager.isAdvertising { self.mPeripheralManager.stopAdvertising() }
         
         self.mServicesArgs.removeAll()
