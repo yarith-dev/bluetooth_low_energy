@@ -521,5 +521,6 @@ final class PeripheralManagerImpl
 
 final class PeripheralManagerChannelImpl extends PeripheralManagerChannel {
   @override
-  PeripheralManager create() => PeripheralManagerImpl();
+  PeripheralManager create({bool showPowerAlert = true}) =>
+      PeripheralManagerImpl();
 }

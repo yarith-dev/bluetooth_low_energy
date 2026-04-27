@@ -23,9 +23,11 @@ final class CentralManagerImpl
   _characteristicNotifiedController;
 
   BluetoothLowEnergyState _state;
+  final bool _showPowerAlert;
 
-  CentralManagerImpl()
-    : _api = CentralManagerHostApi(),
+  CentralManagerImpl({bool showPowerAlert = true})
+    : _showPowerAlert = showPowerAlert,
+      _api = CentralManagerHostApi(),
       _stateChangedController = StreamController.broadcast(),
       _discoveredController = StreamController.broadcast(),
       _connectionStateChangedController = StreamController.broadcast(),
@@ -301,7 +303,7 @@ final class CentralManagerImpl
     await Future(() async {
       try {
         _logger.info('initialize');
-        await _api.initialize();
+        await _api.initialize(_showPowerAlert);
         _getState();
       } catch (e) {
         _logger.severe('initialize failed.', e);
@@ -398,5 +400,6 @@ final class CentralManagerImpl
 
 final class CentralManagerChannelImpl extends CentralManagerChannel {
   @override
-  CentralManager create() => CentralManagerImpl();
+  CentralManager create({bool showPowerAlert = true}) =>
+      CentralManagerImpl(showPowerAlert: showPowerAlert);
 }
