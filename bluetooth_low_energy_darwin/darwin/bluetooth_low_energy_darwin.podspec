@@ -13,17 +13,15 @@ A new Flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'bluetooth_low_energy_darwin/Sources/bluetooth_low_energy_darwin/**/*'
+  s.source_files = 'bluetooth_low_energy_darwin/Sources/bluetooth_low_energy_darwin/**/*.swift'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
-  # If your plugin requires a privacy manifest, for example if it uses any
-  # required reason APIs, update the PrivacyInfo.xcprivacy file to describe your
-  # plugin's privacy impact, and then uncomment this line. For more information,
-  # see https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
-  # s.resource_bundles = {'bluetooth_low_energy_darwin_privacy' => ['bluetooth_low_energy_darwin/Sources/bluetooth_low_energy_darwin/PrivacyInfo.xcprivacy']}
+  # A privacy manifest is a resource, not a Swift source file. Ship the same
+  # declaration for CocoaPods and Swift Package Manager consumers.
+  s.resource_bundles = {'bluetooth_low_energy_darwin_privacy' => ['bluetooth_low_energy_darwin/Sources/bluetooth_low_energy_darwin/PrivacyInfo.xcprivacy']}
   
   s.ios.dependency 'Flutter'
   s.ios.deployment_target = '13.0'
