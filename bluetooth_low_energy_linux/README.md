@@ -11,5 +11,10 @@ so you do not need to add it to your `pubspec.yaml`.
 However, if you `import` this package to use any of its APIs directly, you
 should add it to your `pubspec.yaml` as usual.
 
+Both central and peripheral roles are implemented through BlueZ. Peripheral
+mode requires a Linux adapter exposing the BlueZ GATT and LE advertising
+managers. The plugin reports `BluetoothLowEnergyState.unsupported` when those
+interfaces are unavailable.
+
 [1]: https://pub.dev/packages/bluetooth_low_energy
 [2]: https://flutter.dev/docs/development/packages-and-plugins/developing-packages#endorsed-federated-plugin

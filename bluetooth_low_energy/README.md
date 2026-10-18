@@ -33,31 +33,31 @@ A Flutter plugin for controlling the bluetooth low energy, supports central and 
 
 |API|Android|iOS|macOS|Windows|Linux|
 |:-|:-:|:-:|:-:|:-:|:-:|
-|state|✅|✅|✅|✅||
-|stateChanged|✅|✅|✅|✅||
-|authorize|✅|||||
+|state|✅|✅|✅|✅|✅|
+|stateChanged|✅|✅|✅|✅|✅|
+|authorize|✅||||✅|
 |showAppSettings|✅|✅||||
-|connectionStateChanged|✅|||||
-|mtuChanged|✅|||✅||
-|characteristicReadRequested|✅|✅|✅|✅||
-|characteristicWriteRequested|✅|✅|✅|✅||
-|characteristicNotifyStateChanged|✅|✅|✅|✅||
-|descriptorReadRequested|✅|||✅||
-|descriptorWriteRequested|✅|||✅||
-|addService|✅|✅|✅|✅||
-|removeService|✅|✅|✅|✅||
-|removeAllServices|✅|✅|✅|✅||
-|startAdvertising|✅|✅|✅|✅||
-|stopAdvertising|✅|✅|✅|✅||
-|getCentral|✅|||||
-|retrieveConnectedCentrals|✅|||||
-|disconnect|✅|||||
-|getMaximumNotifyLength|✅|✅|✅|✅||
-|respondReadRequestWithValue|✅|✅|✅|✅||
-|respondReadRequestWithError|✅|✅|✅|✅||
-|respondWriteRequest|✅|✅|✅|✅||
-|respondWriteRequestWithError|✅|✅|✅|✅||
-|notifyCharacteristic|✅|✅|✅|✅||
+|connectionStateChanged|✅||||✅|
+|mtuChanged|✅|||✅|✅|
+|characteristicReadRequested|✅|✅|✅|✅|✅|
+|characteristicWriteRequested|✅|✅|✅|✅|✅|
+|characteristicNotifyStateChanged|✅|✅|✅|✅|✅|
+|descriptorReadRequested|✅|||✅|✅|
+|descriptorWriteRequested|✅|||✅|✅|
+|addService|✅|✅|✅|✅|✅|
+|removeService|✅|✅|✅|✅|✅|
+|removeAllServices|✅|✅|✅|✅|✅|
+|startAdvertising|✅|✅|✅|✅|✅|
+|stopAdvertising|✅|✅|✅|✅|✅|
+|getCentral|✅||||✅|
+|retrieveConnectedCentrals|✅||||✅|
+|disconnect|✅||||✅|
+|getMaximumNotifyLength|✅|✅|✅|✅|✅|
+|respondReadRequestWithValue|✅|✅|✅|✅|✅|
+|respondReadRequestWithError|✅|✅|✅|✅|✅|
+|respondWriteRequest|✅|✅|✅|✅|✅|
+|respondWriteRequestWithError|✅|✅|✅|✅|✅|
+|notifyCharacteristic|✅|✅|✅|✅|✅|
 
 ## Getting Started
 
@@ -90,7 +90,10 @@ When use bluetooth or other hardwares on macOS, developers need to [configure th
 
 ### Linux
 
-The `PeripheralManager` API is not implemented since the [`bluez`][9] didn't support this feature yet.
+Central and peripheral roles use BlueZ over the system D-Bus. Peripheral mode
+requires an adapter that exposes both `org.bluez.GattManager1` and
+`org.bluez.LEAdvertisingManager1`. Hardware, kernel, and BlueZ configuration
+can still make a Linux adapter central-only.
 
 ## Migrations
 

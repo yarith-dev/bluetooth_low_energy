@@ -7,8 +7,8 @@ import 'uuid.dart';
 abstract interface class Advertisement {
   /// The name of the peripheral.
   ///
-  /// This field is available on Android, iOS and macOS, throws [UnsupportedError]
-  /// on other platforms.
+  /// This field is available on Android, iOS, macOS, and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   String? get name;
 
   /// [Android] Add the local name to the primary advertisement packet.
@@ -21,14 +21,14 @@ abstract interface class Advertisement {
 
   /// The GATT service data of the peripheral.
   ///
-  /// This field is available on Android and Windows, throws [UnsupportedError]
-  /// on other platforms.
+  /// This field is available on Android, Windows, and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Map<UUID, Uint8List> get serviceData;
 
   /// The manufacturer specific data of the peripheral.
   ///
-  /// This field is available on Android and Windows, throws [UnsupportedError]
-  /// on other platforms.
+  /// This field is available on Android, Windows, and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   List<ManufacturerSpecificData> get manufacturerSpecificData;
 
   /// Constructs an [Advertisement].

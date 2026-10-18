@@ -34,8 +34,8 @@ abstract interface class PeripheralManager
 
   /// Callback indicating when a remote device has been connected or disconnected.
   ///
-  /// This event is available on Android, throws [UnsupportedError] on other
-  /// platforms.
+  /// This event is available on Android and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Stream<CentralConnectionStateChangedEventArgs> get connectionStateChanged;
 
   /// Callback indicating the MTU for a given device connection has changed.
@@ -43,8 +43,8 @@ abstract interface class PeripheralManager
   /// This callback will be invoked if a remote client has requested to change
   /// the MTU for a given connection.
   ///
-  /// This event is available on Android and Windows, throws [UnsupportedError]
-  /// on other platforms.
+  /// This event is available on Android, Windows, and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Stream<CentralMTUChangedEventArgs> get mtuChanged;
 
   /// Tells that the local peripheral device received an Attribute Protocol (ATT)
@@ -64,15 +64,15 @@ abstract interface class PeripheralManager
   /// Tells that the local peripheral device received an Attribute Protocol (ATT)
   /// read request for a descriptor with a dynamic value.
   ///
-  /// This event is available on Android and Windows, throws [UnsupportedError]
-  /// on other platforms.
+  /// This event is available on Android, Windows, and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Stream<GATTDescriptorReadRequestedEventArgs> get descriptorReadRequested;
 
   /// Tells that the local peripheral device received an Attribute Protocol (ATT)
   /// write request for a descriptor with a dynamic value.
   ///
-  /// This event is available on Android and Windows, throws [UnsupportedError]
-  /// on other platforms.
+  /// This event is available on Android, Windows, and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Stream<GATTDescriptorWriteRequestedEventArgs> get descriptorWriteRequested;
 
   /// Publishes a service and any of its associated characteristics and characteristic
@@ -98,18 +98,20 @@ abstract interface class PeripheralManager
 
   /// Get a central object for the given bluetooth hardware address.
   ///
-  /// This method is available on Android, throws [UnsupportedError] on other platforms.
+  /// This method is available on Android and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Future<Central> getCentral(String address);
 
   /// Returns a list of the centrals connected to the system.
   ///
-  /// This method is available on Android, throws [UnsupportedError] on other platforms.
+  /// This method is available on Android and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Future<List<Central>> retrieveConnectedCentrals();
 
   /// Disconnects a connected central.
   ///
-  /// This method is available on Android, throws [UnsupportedError] on other
-  /// platforms.
+  /// This method is available on Android and Linux, and throws
+  /// [UnsupportedError] on other platforms.
   Future<void> disconnect(Central central);
 
   /// The maximum amount of data, in bytes, that the central can receive in a

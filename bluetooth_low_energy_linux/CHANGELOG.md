@@ -1,3 +1,7 @@
+## NEXT
+
+* Add BlueZ GATT server and LE advertising support for `PeripheralManager`.
+
 ## 6.2.1
 
 * Bump version.
